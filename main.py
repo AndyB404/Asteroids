@@ -1,3 +1,10 @@
+# Groups & flow:
+# - Player.containers = (updatables, drawables)  # sets which groups a new Player() joins
+# - Player(x, y) -> CircleShape.__init__ adds to those groups and sets position
+# - Game loop:
+#     updatables.update(dt)      # calls each sprite.update(dt)
+#     for s in drawables: s.draw(screen)
+
 import pygame
 from constants import *
 from player import Player
@@ -10,19 +17,23 @@ def main():
     dt = 0
     x = SCREEN_WIDTH / 2
     y = SCREEN_HEIGHT / 2
+#groups
+    updatables = pygame.sprite.Group()
+    drawables = pygame.sprite.Group()
+# Player.containers: auto-add new Player() to these groups on construction
+    Player.containers = (updatables, drawables)
     player = Player(x, y)
     print("Starting Asteroids!")
+#game loop
     while play_game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
         screen.fill("black")
-        player.update(dt)
-        player.draw(screen)
+        updatables.update(dt)
+        for s in drawables:
+                s.draw(screen)
         pygame.display.flip()
-#fps counter
-        #current_fps = clock.get_fps()
-        #print(f"FPS: {current_fps:.0f}")
 #fps limit
         tick_rate = clock.tick(60)
         dt = tick_rate / 1000
