@@ -19,3 +19,8 @@ class CircleShape(pygame.sprite.Sprite):
     def update(self, dt):
         # sub-classes must override
         pass
+
+
+
+#how does this class and asteroid inherit from screen on main
+#and what actually is screen?

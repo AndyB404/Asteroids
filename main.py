@@ -1,13 +1,7 @@
-# Groups & flow:
-# - Player.containers = (updatables, drawables)  # sets which groups a new Player() joins
-# - Player(x, y) -> CircleShape.__init__ adds to those groups and sets position
-# - Game loop:
-#     updatables.update(dt)      # calls each sprite.update(dt)
-#     for s in drawables: s.draw(screen)
-
 import pygame
 from constants import *
 from player import Player
+from asteroidfield import *
 
 def main():
     pygame.init()
@@ -20,8 +14,12 @@ def main():
 #groups
     updatables = pygame.sprite.Group()
     drawables = pygame.sprite.Group()
-# Player.containers: auto-add new Player() to these groups on construction
+    asteroids = pygame.sprite.Group()
+#auto-add every instance of these classes to their groups on construction.
+    AsteroidField.containers = (updatables)
     Player.containers = (updatables, drawables)
+    Asteroid.containers = (asteroids, updatables, drawables)
+    AsteroidField()
     player = Player(x, y)
     print("Starting Asteroids!")
 #game loop
