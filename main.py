@@ -5,6 +5,7 @@ from player import Player
 from asteroidfield import *
 from shot import *
 
+
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -42,7 +43,7 @@ def main():
         for a in list(asteroids):
             for s in shots:
                 if a.collision(s):
-                    a.kill()
+                    a.split()
                     s.kill()
                     break
         for s in drawables:
